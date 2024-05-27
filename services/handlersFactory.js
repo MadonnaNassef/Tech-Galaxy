@@ -8,7 +8,7 @@ exports.delete = (Model) =>
 		const document = await Model.findByIdAndDelete(id);
 
 		if (!document) {
-			return next(new ApiError(`Document not found for ${id}`, 404));
+			return next(new ApiError(`No document for this id ${id}`, 404));
 		}
 		res.status(204).send();
 	});
@@ -21,6 +21,7 @@ exports.update = (Model) =>
 		if (!Model) {
 			return next(new ApiError(`Document not found for ${req.params.id}`, 404));
 		}
+		document.save();
 		res.status(200).json({ data: document });
 	});
 
@@ -30,18 +31,25 @@ exports.create = (Model) =>
 		res.status(201).json({ data: document });
 	});
 
-exports.getSpecificDoc = (Model) =>
+exports.getSpecificDoc = (Model, populationOption) =>
 	asyncHandler(async (req, res, next) => {
-		const document = await Model.findById(req.params.id).select(
-			'-passwordResetCode -passwordResetExpiry -passwordResetVerified -__v -role -emailVerificationToken -emailVerificationExpiry'
-		);
+		let query = Model.findById(req.params.id);
+		if (populationOption) {
+			query = query
+				.populate(populationOption)
+				.select(
+					'-passwordResetCode -passwordResetExpiry -passwordResetVerified -__v -role -emailVerificationToken -emailVerificationExpiry'
+				);
+		}
+		const document = await query;
+
 		if (!document) {
 			return next(new ApiError(`Document not found for ${req.params.id}`, 404));
 		}
 		res.status(200).json({ data: document });
 	});
 
-exports.getDocuments = (Model, modelName) =>
+exports.getDocuments = (Model, modelName = '') =>
 	asyncHandler(async (req, res) => {
 		let filter = {};
 		if (req.filterObject) filter = req.filterObject;

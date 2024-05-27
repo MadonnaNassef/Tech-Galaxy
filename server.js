@@ -9,12 +9,8 @@ const ApiError = require('./utils/apiError');
 const globalError = require('./middlewares/errorMiddleware');
 const dbConnection = require('./config/database');
 
-const categoryRoute = require('./routes/categoryRoute');
-const subCategoryRoute = require('./routes/subCategoryRoute');
-const brandRoute = require('./routes/brandRoute');
-const productRoute = require('./routes/productRoute');
-const userRoute = require('./routes/userRoute');
-const authRoute = require('./routes/authRoute');
+// Routes
+const mountRoutes = require('./routes');
 
 // Connect to db
 dbConnection();
@@ -32,12 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Mount Routes
-app.use('/api/categories', categoryRoute);
-app.use('/api/subcategory', subCategoryRoute);
-app.use('/api/brands', brandRoute);
-app.use('/api/product', productRoute);
-app.use('/api/users', userRoute);
-app.use('/api/users/auth', authRoute);
+mountRoutes(app);
 
 app.all('*', (req, res, next) => {
 	next(new ApiError(`Page not found 404 : ${req.originalUrl}`, 400));

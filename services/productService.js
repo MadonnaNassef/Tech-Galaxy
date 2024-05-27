@@ -81,4 +81,4 @@ exports.getProducts = factory.getDocuments(Product, 'Product');
 // GET /api/product/:id
 // Public Access
 
-exports.getProduct = factory.getSpecificDoc(Product);
+exports.getProduct = factory.getSpecificDoc(Product, 'reviews');

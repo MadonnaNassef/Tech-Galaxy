@@ -46,7 +46,7 @@ Tech Galaxy
 };
 
 // Register
-// POST /api/users/auth/register
+// POST /api/auth/register
 // Public
 exports.register = asyncHandler(async (req, res, next) => {
 	const verificationCode = generateVerificationCode();
@@ -76,7 +76,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 });
 
 // Verify Mail Later
-// POST /api/users/auth/verifyMailLater
+// POST /api/auth/verifyMailLater
 // Public
 exports.verifyEmailLater = asyncHandler(async (req, res, next) => {
 	const user = await User.findOne({ email: req.body.email });
@@ -103,7 +103,7 @@ exports.verifyEmailLater = asyncHandler(async (req, res, next) => {
 });
 
 // Verify Mail code
-// POST /api/users/auth/verifyMail
+// POST /api/auth/verifyMail
 // Public
 exports.verifyEmail = asyncHandler(async (req, res, next) => {
 	const hashedVerificationCode = hashData(req.body.verificationCode);
@@ -127,7 +127,7 @@ exports.verifyEmail = asyncHandler(async (req, res, next) => {
 });
 
 // Login
-// POST /api/users/auth/login
+// POST /api/auth/login
 // Public
 exports.login = asyncHandler(async (req, res, next) => {
 	// Login
@@ -200,7 +200,7 @@ exports.authorized = (...roles) =>
 	});
 
 // Forget Password to send mail with reset code
-// /api/users/auth/forget-password
+// /api/auth/forget-password
 // Public
 exports.forgetPassword = asyncHandler(async (req, res, next) => {
 	const user = await User.findOne({ email: req.body.email });
@@ -252,7 +252,7 @@ Tech Galaxy`;
 });
 
 // Verify code
-// /api/users/auth/verifyResetCode
+// /api/auth/verifyResetCode
 // Public
 exports.verifyResetCode = asyncHandler(async (req, res, next) => {
 	const hashedResetCode = hashData(req.body.resetCode);
@@ -273,7 +273,7 @@ exports.verifyResetCode = asyncHandler(async (req, res, next) => {
 });
 
 // Reset Password
-// /api/users/auth/resetPassword
+// /api/auth/resetPassword
 // Public
 exports.resetPassowrd = asyncHandler(async (req, res, next) => {
 	const user = await User.findOne({ email: req.body.email.trim() });

@@ -27,6 +27,8 @@ const {
 	deactivate,
 } = require('../services/userService');
 
+const couponRoute = require('./couponRoute');
+
 // User can use these
 router.get('/userProfile', authenticated, getLoggedData, getUser);
 
@@ -81,5 +83,9 @@ router.put(
 	changeUserPasswordValidator,
 	changeUserPassword
 );
+
+// nested
+// api/users/userId/coupons
+router.use('/:userId/coupons', couponRoute);
 
 module.exports = router;

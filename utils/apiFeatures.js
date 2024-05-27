@@ -5,6 +5,7 @@ class ApiFeatures {
 	}
 
 	filter() {
+		// eslint-disable-next-line node/no-unsupported-features/es-syntax
 		const filterQuery = { ...this.queryString };
 		const exclude = ['page', 'limit', 'sort', 'fields', 'keyword'];
 		exclude.forEach((value) => delete filterQuery[value]);

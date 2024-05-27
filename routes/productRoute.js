@@ -19,6 +19,8 @@ const {
 
 const { authorized, authenticated } = require('../services/authService');
 
+const reviewRoute = require('./reviewRoute');
+
 router
 	.route('/')
 	.get(getProducts)
@@ -47,5 +49,7 @@ router
 		deleteProductValidator,
 		deleteProduct
 	);
+
+router.use('/:productId/reviews', reviewRoute);
 
 module.exports = router;

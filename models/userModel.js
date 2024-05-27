@@ -15,27 +15,49 @@ const userSchema = new mongoose.Schema(
 			unique: [true, 'Email already used'],
 			lowercase: true,
 		},
-		emailVerificationToken: String,
-		emailVerificationExpiry: Date,
-		emailVerified: Boolean,
-
+		coupons: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Coupon',
+			},
+		],
 		phone: String,
-		profileImage: String,
+		address: [
+			{
+				id: mongoose.Schema.Types.ObjectId,
+				alis: { type: String, enum: ['Home', 'Work', 'Other'] },
+				street: String,
+				governorate: String,
+				apartmentNumber: Number,
+				floor: Number,
+				phoneNumber: String,
+				additionalDescription: String,
+			},
+		],
 		password: {
 			type: String,
 			required: [true, 'Password is required'],
 			minlength: [8, 'Password is too short'],
 		},
-		passChangedAt: Date,
-		passwordResetCode: String,
-		passwordResetExpiry: Date,
-		passwordResetVerified: Boolean,
+
+		profileImage: String,
+
 		role: {
 			type: String,
 			enum: ['user', 'admin', 'manager'],
 			default: 'user',
 		},
+
 		active: { type: Boolean, default: true },
+
+		emailVerificationToken: String,
+		emailVerificationExpiry: Date,
+		emailVerified: Boolean,
+
+		passChangedAt: Date,
+		passwordResetCode: String,
+		passwordResetExpiry: Date,
+		passwordResetVerified: Boolean,
 	},
 	{ timestamp: true }
 );

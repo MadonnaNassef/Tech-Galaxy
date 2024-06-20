@@ -1,4 +1,4 @@
-[
+  [
     
         {
           "title": "Laptop",
@@ -10,7 +10,7 @@
           "priceAfterDiscount": 1100,
           "colors": ["Silver", "Black"],
           "images": ["laptop1.jpg", "laptop2.jpg"],
-          "coverImage": "laptop1.jpg",
+          "coverImage": "anker_magnatic_maggo_621_power_bank_5000mAh-White(1399 GPT)",
           "category": "65fad0eabb45434df545257e",
           "subCategory": "65fc8f062dbda5ab2d621d04", 
           "brand": "66015a0a659c3fafb945908c", 
@@ -27,7 +27,7 @@
           "priceAfterDiscount": 750,
           "colors": ["Black", "White", "Blue"],
           "images": ["phone1.jpg", "phone2.jpg"],
-          "coverImage": "phone1.jpg",
+          "coverImage": "anker_magnatic_maggo_621_power_bank_5000mAh-White(1399 GPT)",
           "category": "65fad0eabb45434df545257e",
           "subCategory": "65fc8f062dbda5ab2d621d04", 
           "brand": "66015a0a659c3fafb945908c", 
@@ -44,7 +44,7 @@
               "priceAfterDiscount": 1900,
               "colors": ["Black", "Red"],
               "images": ["gaming-pc1.jpg", "gaming-pc2.jpg"],
-              "coverImage": "gaming-pc1.jpg",
+              "coverImage": "anker_magnatic_maggo_621_power_bank_5000mAh-White(1399 GPT)",
               "category": "65fad0eabb45434df545257e",
               "subCategory": "65fc8f062dbda5ab2d621d04", 
               "brand": "66015a0a659c3fafb945908c", 

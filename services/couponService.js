@@ -20,7 +20,7 @@ exports.deleteCoupon = factory.delete(Coupon);
 // Get Coupons
 // Get /api/coupons
 // Private /  admin-manager
-exports.getCoupons = factory.getDocuments(Coupon);
+exports.getCoupons = factory.getDocuments(Coupon, Coupon);
 
 // Get specific getCoupon by id
 // GET /api/coupons/:id

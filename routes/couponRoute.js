@@ -26,7 +26,9 @@ router.route('/').get(getCouponsValidator, getCoupons);
 router.route('/').post(createCouponValidator, autoGenerateCoupon);
 
 router.use(authenticated, authorized('admin', 'manager'));
-router.route('/').post(createCouponValidator, createCoupon);
+
+router.route('/create').post(createCouponValidator, createCoupon);
+
 router
 	.route('/:id')
 	.get(getCouponValidator, getCoupon)

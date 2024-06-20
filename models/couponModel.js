@@ -1,5 +1,19 @@
 const mongoose = require('mongoose');
 
+// expiress after a month of creation date
+const calculateExpiryDate = () => {
+	const currentDate = new Date();
+	// Add one month to the current date
+	const expiryDate = new Date(
+		currentDate.getFullYear(),
+		currentDate.getMonth() + 1,
+		currentDate.getDate()
+	);
+	return expiryDate;
+};
+
+const expiry = calculateExpiryDate();
+
 const couponSchema = new mongoose.Schema(
 	{
 		name: {
@@ -10,6 +24,7 @@ const couponSchema = new mongoose.Schema(
 		},
 		expire: {
 			type: Date,
+			default: expiry,
 			required: [true, 'Expiry date is required'],
 		},
 		discount: {

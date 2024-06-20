@@ -21,13 +21,12 @@ exports.uploadProductImages = uploadMixOfImages([
 ]);
 
 exports.resizeProductImages = asyncHandler(async (req, res, next) => {
-	// console.log(req.files);
-	//1- Image processing for coverImage
+	// 1- Image processing for coverImage
 	if (req.files.coverImage) {
 		const coverImageFileName = `product-${uniqueId()}-${Date.now()}-cover.jpeg`;
 
 		await sharp(req.files.coverImage[0].buffer)
-			.resize(2000, 1333)
+			.resize({ width: 400, height: 400, fit: 'inside' }) // Resize to fit inside 400x400
 			.toFormat('jpeg')
 			.jpeg({ quality: 95 })
 			.toFile(`uploads/products/${coverImageFileName}`);
@@ -35,7 +34,8 @@ exports.resizeProductImages = asyncHandler(async (req, res, next) => {
 		// Save image into our db
 		req.body.coverImage = coverImageFileName;
 	}
-	//2- Image processing for images
+
+	// 2- Image processing for images
 	if (req.files.images) {
 		req.body.images = [];
 		await Promise.all(
@@ -43,7 +43,7 @@ exports.resizeProductImages = asyncHandler(async (req, res, next) => {
 				const imageName = `product-${uniqueId()}-${Date.now()}-${index + 1}.jpeg`;
 
 				await sharp(img.buffer)
-					.resize(2000, 1333)
+					.resize({ width: 400, height: 400, fit: 'inside' }) // Resize to fit inside 400x400
 					.toFormat('jpeg')
 					.jpeg({ quality: 95 })
 					.toFile(`uploads/products/${imageName}`);
@@ -52,9 +52,9 @@ exports.resizeProductImages = asyncHandler(async (req, res, next) => {
 				req.body.images.push(imageName);
 			})
 		);
-
-		next();
 	}
+
+	next();
 });
 
 // Create product

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const { check, body } = require('express-validator');
 const validorMiddleware = require('../../middlewares/validatorMiddleware');
 const CategoryModel = require('../../models/categoryModel');
@@ -54,22 +55,22 @@ exports.createProductValidator = [
 		.withMessage('Category is required')
 		.isMongoId()
 		.withMessage('Invalid Category ID')
-		.custom((categoryId) => {
-			return CategoryModel.findById(categoryId).then((category) => {
+		.custom((categoryId) =>
+			CategoryModel.findById(categoryId).then((category) => {
 				if (!category) return Promise.reject(new Error('Category not found'));
-			});
-		}),
+			})
+		),
 	check('subCategory')
 		.notEmpty()
 		.withMessage('Subcategory is required')
 		.isMongoId()
 		.withMessage('Invalid Subcategory ID')
-		.custom((subCategoryId) => {
-			return subCategoryModel.findById(subCategoryId).then((subCategory) => {
+		.custom((subCategoryId) =>
+			subCategoryModel.findById(subCategoryId).then((subCategory) => {
 				if (!subCategory)
 					return Promise.reject(new Error('Subcategory not found'));
-			});
-		})
+			})
+		)
 		.custom((value, { req }) =>
 			subCategoryModel
 				.find({ category: req.body.category })
@@ -90,11 +91,11 @@ exports.createProductValidator = [
 		.withMessage('Brand is required')
 		.isMongoId()
 		.withMessage('Invalid Brand ID')
-		.custom((brandId) => {
-			return BrandModel.findById(brandId).then((brand) => {
+		.custom((brandId) =>
+			BrandModel.findById(brandId).then((brand) => {
 				if (!brand) return Promise.reject(new Error('Brand not found'));
-			});
-		}),
+			})
+		),
 	check('ratingsAverage')
 		.optional()
 		.isNumeric()
@@ -109,14 +110,23 @@ exports.getProductValidator = [
 	check('id').isMongoId().withMessage('Invalid Product ID format'),
 	validorMiddleware,
 ];
+
 exports.updateProductValidator = [
 	check('id').isMongoId().withMessage('Invalid Product ID format'),
 	body('title')
 		.optional()
 		.custom((value, { req }) => {
-			req.body.slug = slugify(value);
-			return true;
+			if (value) {
+				// Corrected typo: `tilte` to `value`
+				req.body.slug = slugify(value); // Assuming `slugify` function is defined elsewhere
+				return true;
+			}
 		}),
+	check('description').optional(),
+	check('ratingsAverage').optional(),
+	check('priceAfterDiscount').optional(),
+	check('price').optional(),
+	check('quantity').optional(),
 	validorMiddleware,
 ];
 

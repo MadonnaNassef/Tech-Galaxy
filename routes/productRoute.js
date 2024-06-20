@@ -38,8 +38,6 @@ router
 	.put(
 		authenticated,
 		authorized('admin', 'manager'),
-		uploadProductImages,
-		resizeProductImages,
 		updateProductValidator,
 		updateProduct
 	)

@@ -8,9 +8,14 @@ const {
 	getSpecificOrder,
 	updateStatus,
 	updateDeliveryStatus,
+	createCheckoutSession,
 } = require('../services/orderService');
 
 const router = express.Router();
+
+router
+	.route('/checkout-session/:cartId')
+	.get(authenticated, authorized('user'), createCheckoutSession);
 
 router
 	.route('/')

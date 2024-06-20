@@ -56,6 +56,41 @@ const productSchema = new mongoose.Schema(
 			min: [1, 'Rating is not valid'],
 			max: [5, 'Rating is not valid'],
 		},
+		gamingAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
+		workAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
+		videoAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
+		soundAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
+		dependabilityAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
+		cameraAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
+		batteryAverage: {
+			type: Number,
+			min: [1, 'Rating is not valid'],
+			max: [5, 'Rating is not valid'],
+		},
 		ratingQuantity: {
 			type: Number,
 			default: 0,

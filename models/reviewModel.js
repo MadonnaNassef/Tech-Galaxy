@@ -13,6 +13,48 @@ const reviewSchema = new mongoose.Schema(
 			max: [5, 'Maximum rating is 5 stars'],
 			required: [true, 'Rating is required'],
 		},
+		gamingRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
+		workRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
+		videoRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
+		soundRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
+		dependabilityRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
+		cameraRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
+		batteryRating: {
+			type: Number,
+			min: [1, 'Minimum rating is 1 star'],
+			max: [5, 'Maximum rating is 5 stars'],
+			// required: [true, 'Rating is required'],
+		},
 		user: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'User',
@@ -42,6 +84,13 @@ reviewSchema.statics.calcAverageRatingAndQuantity = async function (productId) {
 			$group: {
 				_id: 'product',
 				avgRatings: { $avg: '$ratings' },
+				avgGaming: { $avg: '$gamingRating' },
+				avgWork: { $avg: '$workRating' },
+				avgVideo: { $avg: '$videoRating' },
+				avgSound: { $avg: '$soundRating' },
+				avgDependability: { $avg: '$dependabilityRating' },
+				avgCamera: { $avg: '$cameraRating' },
+				avgBattery: { $avg: '$batteryRating' },
 				ratingsQuantity: { $sum: 1 },
 			},
 		},
@@ -50,11 +99,24 @@ reviewSchema.statics.calcAverageRatingAndQuantity = async function (productId) {
 	if (statics.length > 0) {
 		await Product.findByIdAndUpdate(productId, {
 			ratingsAverage: statics[0].avgRatings,
+			gamingAverage: statics[0].avgGaming,
+			workAverage: statics[0].avgWork,
+			videoAverage: statics[0].avgVideo,
+			soundAverage: statics[0].avgSound,
+			dependabilityAverage: statics[0].avgDependability,
+			cameraAverage: statics[0].avgCamera,
+			batteryAverage: statics[0].avgBattery,
 			ratingQuantity: statics[0].ratingsQuantity,
 		});
 	} else {
 		await Product.findByIdAndUpdate(productId, {
 			ratingsAverage: 0,
+			gamingAverage: 0,
+			workAverage: 0,
+			videoAverage: 0,
+			dependabilityAverage: 0,
+			cameraAverage: 0,
+			batteryAverage: 0,
 			ratingQuantity: 0,
 		});
 	}

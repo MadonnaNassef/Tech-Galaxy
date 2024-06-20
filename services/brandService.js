@@ -15,7 +15,7 @@ exports.resizeBrandImage = asyncHandler(async (req, res, next) => {
 
 	if (req.file) {
 		await sharp(req.file.buffer)
-			.resize(400, 400)
+			.resize(100, 100)
 			.toFormat('jpeg')
 			.jpeg({ quality: 90 })
 			.toFile(`uploads/brands/${filename}`);

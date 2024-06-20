@@ -20,11 +20,40 @@ class ApiFeatures {
 
 	sort() {
 		if (this.queryString.sort) {
-			const sortStr = this.queryString.sort.split(',').join(' ');
-			this.mongooseQuery = this.mongooseQuery.sort(sortStr);
-		} else this.mongooseQuery.sort('-createdAt');
+			let sortField = '';
+			switch (this.queryString.sort) {
+				case 'popularity':
+					sortField = '-sold';
+					break;
+				case 'rating':
+					sortField = '-ratingsAverage';
+					break;
+				case 'latest':
+					sortField = '-createdAt';
+					break;
+				case 'low-to-high':
+					sortField = 'price';
+					break;
+				case 'high-to-low':
+					sortField = '-price';
+					break;
+				default:
+					sortField = '-createdAt'; // Default sorting
+					break;
+			}
+			this.mongooseQuery = this.mongooseQuery.sort(sortField);
+		} else {
+			this.mongooseQuery = this.mongooseQuery.sort('-createdAt'); // Default sorting
+		}
 		return this;
 	}
+	// sort() {
+	// 	if (this.queryString.sort) {
+	// 		const sortStr = this.queryString.sort.split(',').join(' ');
+	// 		this.mongooseQuery = this.mongooseQuery.sort(sortStr);
+	// 	} else this.mongooseQuery.sort('-createdAt');
+	// 	return this;
+	// }
 
 	limitField() {
 		if (this.queryString.fields) {
